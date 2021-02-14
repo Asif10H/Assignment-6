@@ -135,6 +135,14 @@ searchBtn.addEventListener('click', function () {
   } 
 })
 
+const search = document.getElementById('search');
+search.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+      event.preventDefault();
+      searchBtn.click();
+  }
+});
+
 sliderBtn.addEventListener('click', function () {
   createSlider()
 })
