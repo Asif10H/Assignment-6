@@ -120,8 +120,15 @@ searchBtn.addEventListener('click', function () {
   document.querySelector('.main').style.display = 'none';
   clearInterval(timer);
   const search = document.getElementById('search');
-  getImages(search.value)
-  sliders.length = 0;
+  console.log(search.value);
+  if(search.value == '' || search.value == ' '){ // 1. features: empty items checked
+    alert("Please enter valid item");
+  }
+  else{
+    getImages(search.value)
+    sliders.length = 0;
+  }
+  
 })
 
 sliderBtn.addEventListener('click', function () {
