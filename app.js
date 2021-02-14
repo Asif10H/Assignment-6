@@ -6,6 +6,8 @@ const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
 // selected image 
 let sliders = [];
+//selected tag name
+let slidersTag = []; // 1. features: image tag name showed
 
 
 // If this key doesn't work
@@ -38,11 +40,12 @@ const getImages = (query) => {
 let slideIndex = 0;
 const selectItem = (event, img) => {
   let element = event.target;
+  let elementTag = event.target.alt;
   element.classList.add('added');
- 
   let item = sliders.indexOf(img);
   if (item === -1) {
     sliders.push(img);
+    slidersTag.push(elementTag);
   } else {
     alert('Hey, Already added !')
   }
@@ -66,16 +69,19 @@ const createSlider = () => {
   sliderContainer.appendChild(prevNext)
   document.querySelector('.main').style.display = 'block';
   // hide image aria
-  //imagesArea.style.display = 'none';
   const duration = document.getElementById('duration').value;
   if(duration > 0){
     imagesArea.style.display = 'none';
+    let i = 0;
     sliders.forEach(slide => {
       let item = document.createElement('div')
       item.className = "slider-item";
-      item.innerHTML = `<img class="w-100"
+      item.innerHTML = `
+      <h1>${slidersTag[i]}</h1>
+      <img class="w-100"
       src="${slide}"
-      alt="">`;
+      alt=""> `;
+      i++;
       sliderContainer.appendChild(item)
     })
     changeSlide(0)
@@ -120,15 +126,13 @@ searchBtn.addEventListener('click', function () {
   document.querySelector('.main').style.display = 'none';
   clearInterval(timer);
   const search = document.getElementById('search');
-  console.log(search.value);
-  if(search.value == '' || search.value == ' '){ // 1. features: empty items checked
+  if(search.value == '' || search.value == ' '){ // 2. features: empty items checked
     alert("Please enter valid item");
   }
   else{
     getImages(search.value)
     sliders.length = 0;
-  }
-  
+  } 
 })
 
 sliderBtn.addEventListener('click', function () {
